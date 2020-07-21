@@ -1,0 +1,21 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.logo {
+    height: 14em;
+    width: 17em;
+}
+ .name{
+     font-size: 6em;
+
+ }
