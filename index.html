@@ -4,42 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daily Journal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Homemade+Apple&family=Petit+Formal+Script&family=Shadows+Into+Light&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/main.css">
 </head>
 
-<body>
+<body class="body">
     <header class="header">
-        <img class="logo" src="./images/Daily Journal Logo.png">
-        <h1 class="name">Samantha Maas</h1>
+        <img class="logo" src="./images/journal.png">
+        <h1 class="name">Daily Journal</h1>
     </header>
     <main class="main">
         <h2></h2>
-        <form class="form">
-            <fieldset>
-                <label for="journalDate">Date of Entry</label>
-                <input type="date" name="journalDate" id="journalDate">
-            </fieldset>
-            <fieldset>
-                <label for="concepts">Concepts Covered</label>
-                <input type="text" name="concepts" id="concepts">
-            </fieldset>
-            <fieldset>
-                <label for="journalEntry">Journal Entry</label>
-                <input type="text" name="journalEntry" id="journalEntry">
-            </fieldset>
-            <fieldset>
-                <label for="mood">Mood of the Day</label>
-                <select id="moodList">
-                    <option value="happy">Happy</option>
-                    <option value="sad">Sad</option>
-                    <option value="stressed">Stressed</option>
-                    <option value="confident">Confident</option>
-                </select>
-            </fieldset>
-            <button class="submit">Submit</button>
-        </form>
-        <article class="entries">
-        </article>
+        <section class="formAndEntry">
+            <form class="form">
+                <fieldset>
+                    <label for="journalDate">Date of Entry</label>
+                    <input type="date" name="journalDate" id="journalDate">
+                </fieldset>
+                <fieldset>
+                    <label for="concepts">Concepts Covered</label>
+                    <input type="text" name="concepts" id="concepts">
+                </fieldset>
+                <fieldset>
+                    <label for="journalEntry">Journal Entry</label>
+                    <input type="text" name="journalEntry" id="journalEntry">
+                </fieldset>
+                <fieldset>
+                    <label for="mood">Mood of the Day</label>
+                    <select id="moodList">
+                        <option value="happy">Happy</option>
+                        <option value="sad">Sad</option>
+                        <option value="stressed">Stressed</option>
+                        <option value="confident">Confident</option>
+                    </select>
+                </fieldset>
+                <button class="submit">Submit</button>
+            </form>
+            <article class="entries">
+            </article>
+        </section>
+            <article class="listOfEntries">
+            </article>
         <script type="module" src="./scripts/main.js"></script>
     </main>
     <footer class="footer">

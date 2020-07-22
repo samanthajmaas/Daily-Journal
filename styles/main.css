@@ -1,12 +1,26 @@
-.form {
+.main {
     display: flex;
-    flex-direction: column;
 }
 
+.formAndEntry{
+    flex: 3;
+}
+
+.form{
+    border: black;
+    padding: 2em;
+}
+
+.entries{
+    padding: 2em;
+}
+
+.listOfEntries{
+    flex: 3;
+}
 .header {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
 }
 
 .logo {
@@ -16,4 +30,5 @@
 
  .name{
      font-size: 5em;
+     font-family: 'Homemade Apple', cursive;
  }
