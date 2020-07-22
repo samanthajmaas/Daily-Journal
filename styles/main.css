@@ -1,9 +1,7 @@
 .form {
     display: flex;
     flex-direction: column;
-    
 }
-
 
 .header {
     display: flex;
@@ -15,7 +13,7 @@
     height: 14em;
     width: 17em;
 }
+
  .name{
      font-size: 5em;
-
  }
