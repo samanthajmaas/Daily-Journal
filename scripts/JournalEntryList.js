@@ -1,12 +1,22 @@
-import {journalEntriesSorted} from "./JournalDataProvider.js"
+import {journalEntriesSorted, getEntries} from "./JournalDataProvider.js"
 import {journalEntryHTML} from "./JournalEntryHTMLConverter.js"
 
 const contentElement = document.querySelector(".entries")
 
 export const entryList = () => {
-    
-    const entries = journalEntriesSorted()
+    getEntries()
+    .then(() => {
+        const entries = journalEntriesSorted()
+        render(entries)
+    })
+}
 
-    contentElement.innerHTML += `
-        ${entries.map(entry => (journalEntryHTML(entry)))}`
+const render = (entryArray) => {
+    const allEntriesIntoStrings = entryArray.map (
+        (currentEntry) => {
+            return journalEntryHTML(currentEntry)
+        }
+    ).join("")
+
+        contentElement.innerHTML = allEntriesIntoStrings
 }
