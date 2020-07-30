@@ -5,6 +5,7 @@
     flex-wrap: wrap;
 }
 
+
 .logo {
     height: 14em;
     width: 17em;
@@ -34,7 +35,7 @@
  }
 
  button{
-    width: 36.5rem;
+    width: 8rem;
  }
  
  textarea {
@@ -47,6 +48,13 @@
    letter-spacing: 2px;
    color:  #7395ae;
  }
- 
+ .footer{
+    display: flex;
+    justify-content: center;
+ }
+ .flower{
+     height: 10rem;
+     width: 18;
+ }
 
  

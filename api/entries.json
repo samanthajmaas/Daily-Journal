@@ -33,11 +33,11 @@
       "mood": "Stressed"
     },
     {
-      "date": "2020-07-22",
-      "concept": "API",
-      "author": "Sam",
-      "entry": "LEARNED API",
-      "mood": "confident",
+      "date": "2020-07-30",
+      "concept": "API ",
+      "author": "Samantha Maas",
+      "entry": "Today, I practiced using an API and creating an API through json server in my Daily Journal application. It was challenging, but I finally figured out how to do it! ",
+      "mood": "happy",
       "id": 5
     }
   ]
