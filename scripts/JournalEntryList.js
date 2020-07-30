@@ -2,6 +2,11 @@ import {journalEntriesSorted, getEntries} from "./JournalDataProvider.js"
 import {journalEntryHTML} from "./JournalEntryHTMLConverter.js"
 
 const contentElement = document.querySelector(".entries")
+const eventHub =document.querySelector(".main")
+
+eventHub.addEventListener("showJournalSubmited", customEvent => {
+    entryList()
+})
 
 export const entryList = () => {
     getEntries()
@@ -18,5 +23,5 @@ const render = (entryArray) => {
         }
     ).join("")
 
-        contentElement.innerHTML = allEntriesIntoStrings
+    contentElement.innerHTML = allEntriesIntoStrings
 }

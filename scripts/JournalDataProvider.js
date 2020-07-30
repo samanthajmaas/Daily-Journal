@@ -1,5 +1,13 @@
 let journalEntries = []
 
+const eventHub = document.querySelector(".main")
+
+const dispatchStateChangeEvent = () => {
+    const entryStateChangedEvent = new CustomEvent("entryStateChanged")
+
+    eventHub.dispatchEvent(entryStateChangedEvent)
+}
+
 export const journalEntriesSorted = () => {
     const sortedByDate = journalEntries.sort(
         (currentEntry, nextEntry) =>
@@ -28,5 +36,5 @@ export const saveEntry = entry => {
         body: jsonNote
     })
     .then(getEntries)
-    .then(journalEntriesSorted)
+    .then(dispatchStateChangeEvent)
 }
