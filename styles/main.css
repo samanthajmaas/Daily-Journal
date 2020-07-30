@@ -5,7 +5,6 @@
     flex-wrap: wrap;
 }
 
-
 .logo {
     height: 14em;
     width: 17em;
@@ -15,7 +14,7 @@
      font-size: 5em;
      font-family: 'Homemade Apple', cursive;
  }
-
+ 
  body,
  button,
  input,
@@ -57,4 +56,3 @@
      width: 18;
  }
 
- 
