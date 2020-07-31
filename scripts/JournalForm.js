@@ -26,7 +26,9 @@ eventHub.addEventListener("click", clickEvent => {
 const render = () => {
     contentTarget.innerHTML = `
     <article class="form">
+    <form>
         <h2> New Entry </h2>
+
         <input type="date" name="journalDate" id="entry--date"/>
         <input type="text" id="entry--concept" placeholder= "Concept Learned"/>
         <input type="text" id="entry--author" placeholder= "Your Name"/>
@@ -38,9 +40,9 @@ const render = () => {
             <option value="stressed">Stressed</option>
             <option value="confident">Confident</option>
         </select>
-        
+    
         <button id="submit">Submit</button>
-
+    </form>
     `
 }
 
