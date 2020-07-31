@@ -6,7 +6,8 @@ export const journalEntryHTML = (entry) => {
             <div class= "entry--author"> Entry By: ${entry.author}</div>
             <div class="entry--entry">${entry.entry}</div>
             <div class="entry--mood">Mood: ${entry.mood}</div>
-            <button class="edit">Edit Entry</button>
+            <input type="hidden" name="entryId" id="entryId">
+            <button class="editEntry--${entry.id}">Edit Entry</button>
             <button class="delete">Delete Entry</button>
             <br></br>
             <img class="journalFlower" src="./images/Wildflower 9.png">

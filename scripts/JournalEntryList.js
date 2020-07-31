@@ -1,7 +1,7 @@
 import {journalEntriesSorted, getEntries} from "./JournalDataProvider.js"
 import {journalEntryHTML} from "./JournalEntryHTMLConverter.js"
 
-//const eventHub =document.querySelector(".main")
+const eventHub =document.querySelector(".main")
 const contentElement = document.querySelector(".entries")
 
 
@@ -29,3 +29,5 @@ const render = (entryArray) => {
     ${allEntriesIntoStrings}
     `
 }
+
+eventHub.addEventListener("entryStateChanged", entryList)
