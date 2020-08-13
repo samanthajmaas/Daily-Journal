@@ -1,4 +1,4 @@
-import {journalEntriesSorted, getEntries} from "./JournalDataProvider.js"
+import {journalEntriesSorted, getEntries, useMoods} from "./JournalDataProvider.js"
 import {journalEntryHTML} from "./JournalEntryHTMLConverter.js"
 
 const eventHub =document.querySelector(".main")
@@ -18,9 +18,17 @@ export const entryList = () => {
 }
 
 const render = (entryArray) => {
-    const allEntriesIntoStrings = entryArray.map (
+    const moods = useMoods()
+
+    const allEntriesIntoStrings = entryArray.reverse().map (
         (currentEntry) => {
-            return journalEntryHTML(currentEntry)
+            const mood = moods.find(
+                (mood) => {
+                    return mood.id === currentEntry.moodId
+                }
+            )
+
+            return journalEntryHTML(currentEntry, mood)
         }
     ).join("")
 

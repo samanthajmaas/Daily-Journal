@@ -1,4 +1,5 @@
-import {saveEntry} from "./JournalDataProvider.js"
+import {saveEntry, getMoods, useMoods} from "./JournalDataProvider.js"
+
 
 const eventHub = document.querySelector(".main")
 const contentTarget = document.querySelector(".formAndEntry")
@@ -10,20 +11,21 @@ eventHub.addEventListener("click", clickEvent => {
         const entryAuthor = document.querySelector("#entry--author")
         const entryText = document.querySelector("#entry--text")
         const entryMood = document.querySelector("#entry--mood")
+        
 
         const newEntry = {
             date: entryDate.value,
             concept: entryConcept.value,
             author: entryAuthor.value,
             entry: entryText.value,
-            mood: entryMood.value,
+            moodId: parseInt(entryMood.value),
         }
 
         saveEntry(newEntry)
     }
 })
 
-const render = () => {
+const render = (moods) => {
     contentTarget.innerHTML = `
     <article class="form">
     <form>
@@ -35,10 +37,15 @@ const render = () => {
         <textarea type="text" id="entry--text" placeholder="Entry text here"></textarea>
         <label for="mood">Mood of the Day</label>
         <select id="entry--mood">
-            <option value="happy">Happy</option>
-            <option value="sad">Sad</option>
-            <option value="stressed">Stressed</option>
-            <option value="confident">Confident</option>
+            ${
+                moods.map(
+                    (moodsObj) => {
+                        return `<option value="${moodsObj.id}">
+                            ${moodsObj.label}
+                            </option>`
+                    }
+                )
+            }
         </select>
     
         <button id="submit">Submit</button>
@@ -47,5 +54,10 @@ const render = () => {
 }
 
 export const NoteForm = () => {
-    render()
+    getMoods()
+        .then(() =>{
+            const moods = useMoods()
+            render(moods)
+        }
+        )
 }

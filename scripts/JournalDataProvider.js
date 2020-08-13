@@ -1,4 +1,5 @@
 let journalEntries = []
+let moods =[]
 
 const eventHub = document.querySelector(".main")
 
@@ -6,6 +7,10 @@ const dispatchStateChangeEvent = () => {
     const entryStateChangedEvent = new CustomEvent("entryStateChanged")
 
     eventHub.dispatchEvent(entryStateChangedEvent)
+}
+
+export const useMoods = () => {
+    return moods.slice()
 }
 
 export const journalEntriesSorted = () => {
@@ -22,6 +27,14 @@ export const getEntries = () => {
     .then(response => response.json())  
     .then(entries => {
         journalEntries = entries
+    })
+}
+
+export const getMoods = () => {
+    return fetch("http://localhost:3000/moods") 
+    .then(response => response.json())  
+    .then(parsedMoods => {
+        moods = parsedMoods
     })
 }
 
