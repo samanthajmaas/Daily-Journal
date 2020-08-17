@@ -59,3 +59,15 @@ export const deleteEntry = (entryId) => {
     .then(getEntries)
     .then(dispatchStateChangeEvent)
 }
+
+export const editEntry = (entry) => {
+    return fetch(`http://localhost:3000/entries/${ entry.id }`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(entry)
+    })
+    .then(getEntries)
+    .then(dispatchStateChangeEvent)
+}
