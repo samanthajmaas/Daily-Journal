@@ -1,11 +1,11 @@
 {
   "entries": [
     {
-      "date": "2020-08-13",
-      "concept": "Combining two API ",
+      "date": "2020-08-14",
+      "concept": "Testing",
       "author": "Sam",
-      "entry": "Today, we learned how to generate moods in a separate API! ",
-      "moodId": 2,
+      "entry": "Test",
+      "moodId": 4,
       "id": 1
     }
   ],
