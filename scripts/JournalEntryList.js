@@ -1,13 +1,21 @@
-import {journalEntriesSorted, getEntries, useMoods} from "./JournalDataProvider.js"
+import {deleteEntry, journalEntriesSorted, getEntries, useMoods} from "./JournalDataProvider.js"
 import {journalEntryHTML} from "./JournalEntryHTMLConverter.js"
 
 const eventHub =document.querySelector(".main")
 const contentElement = document.querySelector(".entries")
 
+eventHub.addEventListener("click", clickEvent => {
+    if (clickEvent.target.id.startsWith("entryDeleteButton--")){
+        const [prompt, entryId] = clickEvent.target.id.split("--")
 
-//eventHub.addEventListener("showJournalSubmited", customEvent => {
-    //entryList()
-//})
+        deleteEntry(entryId)
+    }
+})
+
+eventHub.addEventListener("entryStateChanged", customEvent => {
+    const allEntries = journalEntriesSorted()
+    render(allEntries)
+})
 
 export const entryList = () => {
     getEntries()
