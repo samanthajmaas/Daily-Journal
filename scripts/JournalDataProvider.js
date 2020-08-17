@@ -23,7 +23,7 @@ export const journalEntriesSorted = () => {
 
 
 export const getEntries = () => {
-    return fetch("http://localhost:3000/entries") 
+    return fetch("http://localhost:3000/entries?_expand=mood") 
     .then(response => response.json())  
     .then(entries => {
         journalEntries = entries
@@ -47,6 +47,14 @@ export const saveEntry = entry => {
             "Content-Type": "application/json"
         },
         body: jsonNote
+    })
+    .then(getEntries)
+    .then(dispatchStateChangeEvent)
+}
+
+export const deleteEntry = (entryId) => {
+    return fetch (`http://localhost:3000/entries/${ entryId }`, {
+        method: "DELETE"
     })
     .then(getEntries)
     .then(dispatchStateChangeEvent)
