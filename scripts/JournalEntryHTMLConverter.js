@@ -1,3 +1,5 @@
+const eventHub = document.querySelector(".main")
+
 export const journalEntryHTML = (entry) => {
     return `
     <article id="entry--${entry.id}" "class= "journalEntry">
@@ -6,11 +8,22 @@ export const journalEntryHTML = (entry) => {
             <div class= "entry--author"> Entry By: ${entry.author}</div>
             <div class="entry--entry">${entry.entry}</div>
             <div class="entry--mood">Mood: ${entry.mood.label}</div>
-            <input type="hidden" name="entryId" id="entryId">
-            <button class="editEntry--${entry.id}">Edit Entry</button>
+            <button id="entryEditButton--${entry.id}">Edit Entry</button>
             <button id="entryDeleteButton--${ entry.id }">Delete Entry</button>
             <br></br>
-            <img class="journalFlower" src="./images/Wildflower 9.png">
     </article>
     `
 }
+
+eventHub.addEventListener("click", event => {
+    if(event.target.id.startsWith("entryEditButton--")){
+        const[prompt, entryId] = event.target.id.split("--")
+        
+        const customEvent = new CustomEvent("editEntryClicked", {
+            detail: {
+                entryId: parseInt(entryId)
+            }
+        })
+        eventHub.dispatchEvent(customEvent)
+    }
+})

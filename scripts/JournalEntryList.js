@@ -12,6 +12,14 @@ eventHub.addEventListener("click", clickEvent => {
     }
 })
 
+eventHub.addEventListener("click", clickEvent => {
+    if (clickEvent.target.id.startsWith("entryEditButton----")){
+        const [prompt, entryId] = clickEvent.target.id.split("--")
+
+        const message = new CustomEvent("entryEdited")
+    }
+})
+
 eventHub.addEventListener("entryStateChanged", customEvent => {
     const allEntries = journalEntriesSorted()
     render(allEntries)
