@@ -1,71 +1,24 @@
-import { saveEntry, getMoods, useMoods, journalEntriesSorted, editEntry } from "./JournalDataProvider.js"
+import { saveEntry, getMoods, useMoods, journalEntriesSorted, editEntry, getEntriesTags, useEntriesTags, saveEntriesTags, getTags, useTags, saveTags } from "./JournalDataProvider.js"
 
 
 const eventHub = document.querySelector(".main")
 const contentTarget = document.querySelector(".formAndEntry")
 
-eventHub.addEventListener("editEntryClicked", customEvent => {
-    const allEntries = journalEntriesSorted()
-    const entryId = event.detail.entryId
-    const entryObj = allEntries.find(entry => entry.id === entryId)
-
-    const entryDate = document.querySelector("#entry--date")
-    const entryConcept = document.querySelector("#entry--concept")
-    const entryAuthor = document.querySelector("#entry--author")
-    const entryText = document.querySelector("#entry--text")
-    const entryMood = document.querySelector("#entry--mood")
-    const id = document.querySelector("#entryId")
-
-    entryDate.value = entryObj.date
-    entryConcept.value = entryObj.concept
-    entryAuthor.value = entryObj.author
-    entryText.value = entryObj.entry
-    entryMood.value = entryObj.mood.id
-    id.value = entryId
-})
-
-
-
-eventHub.addEventListener("click", clickEvent => {
-    if (clickEvent.target.id === "submit") {
-
-        const entryDate = document.querySelector("#entry--date")
-        const entryConcept = document.querySelector("#entry--concept")
-        const entryAuthor = document.querySelector("#entry--author")
-        const entryText = document.querySelector("#entry--text")
-        const entryMood = document.querySelector("#entry--mood")
-        const id = document.querySelector("#entryId")
-
-        if (entryConcept.value && entryDate.value && entryMood.value && entryText.value && entryAuthor.value) {
-            const id = document.querySelector("#entryId")
-            if (id.value === "") {
-                const newEntry = {
-                    date: entryDate.value,
-                    concept: entryConcept.value,
-                    author: entryAuthor.value,
-                    entry: entryText.value,
-                    moodId: parseInt(entryMood.value),
-                }
-                saveEntry(newEntry)
-            } else {
-                const updatedEntry = {
-                    date: entryDate.value,
-                    concept: entryConcept.value,
-                    author: entryAuthor.value,
-                    entry: entryText.value,
-                    moodId: parseInt(entryMood.value),
-                    id: parseInt(id.value)
-                }
-                editEntry(updatedEntry)
-            }
+//Shows the NoteForm on the page where user can input a new Journal Entry
+export const NoteForm = () => {
+    getMoods()
+        .then(() => {
+            const moods = useMoods()
+            render(moods)
         }
-    }
-})
+        )
+}
 
+//This is the function that actually adds the HTML 
 const render = (moods) => {
     contentTarget.innerHTML = `
     <article class="form">
-    <form>
+    <div>
         <h2> New Entry </h2>
 
         <input type="date" name="journalDate" id="entry--date"/>
@@ -87,28 +40,97 @@ const render = (moods) => {
         <input type ="text" id="entry--tags" placeholder="List tags i.e API, components, ect."/>
         <button id="submit">Submit</button>
         <input type="hidden" name="entryId" id="entryId" value="">
-    </form>
+    </div>
     `
 }
 
-export const NoteForm = () => {
-    getMoods()
-        .then(() => {
-            const moods = useMoods()
-            render(moods)
+let currentJournalTags = []
+//This is listening for the Submit button after the user fills out the form.
+//This stores the information from a new entry into the entries database
+//This also updates the information in the entries database if the user edits an exsisting entry
+eventHub.addEventListener("click", clickEvent => {
+    if (clickEvent.target.id === "submit") {
+        getEntriesTags()
+            .then(getTags)
+            .then( () => {
+                tagsFunction()
+                const entryDate = document.querySelector("#entry--date")
+                const entryConcept = document.querySelector("#entry--concept")
+                const entryAuthor = document.querySelector("#entry--author")
+                const entryText = document.querySelector("#entry--text")
+                const entryMood = document.querySelector("#entry--mood")
+                const id = document.querySelector("#entryId")
+
+
+
+                if (entryConcept.value && entryDate.value && entryMood.value && entryText.value && entryAuthor.value) {
+                    const id = document.querySelector("#entryId")
+                    if (id.value === "") {
+                        const newEntry = {
+                            date: entryDate.value,
+                            concept: entryConcept.value,
+                            author: entryAuthor.value,
+                            entry: entryText.value,
+                            moodId: parseInt(entryMood.value),
+                        }
+                        saveEntry(newEntry)
+                    } else {
+                        const updatedEntry = {
+                            date: entryDate.value,
+                            concept: entryConcept.value,
+                            author: entryAuthor.value,
+                            entry: entryText.value,
+                            moodId: parseInt(entryMood.value),
+                            id: parseInt(id.value)
+                        }
+                        editEntry(updatedEntry)
+                    }
+                }
+            })
+    }
+})
+
+
+//This is listening for a user to click the edit entry button. 
+//This updates the form component with the information from the previous entry which can then be changed. 
+eventHub.addEventListener("editEntryClicked", customEvent => {
+    const allEntries = journalEntriesSorted()
+    const entryId = event.detail.entryId
+    const entryObj = allEntries.find(entry => entry.id === entryId)
+
+    const entryDate = document.querySelector("#entry--date")
+    const entryConcept = document.querySelector("#entry--concept")
+    const entryAuthor = document.querySelector("#entry--author")
+    const entryText = document.querySelector("#entry--text")
+    const entryMood = document.querySelector("#entry--mood")
+    const id = document.querySelector("#entryId")
+
+    entryDate.value = entryObj.date
+    entryConcept.value = entryObj.concept
+    entryAuthor.value = entryObj.author
+    entryText.value = entryObj.entry
+    entryMood.value = entryObj.mood.id
+    id.value = entryId
+})
+
+export const tagsFunction = () => {
+    const tags = useTags()
+
+    const entryTags = document.querySelector("#entry--tags") //What tags did the user input?
+    //I have an array of Tags ["API", "component", "fetch"] *HOW DO I use this now?!
+    const arrayOfTagStrings = entryTags.value.split(",")
+
+     arrayOfTagStrings.map(inputTag => {
+        const existingTag = tags.find(tag => tag.subject.toLowerCase() === inputTag.toLowerCase())
+        if (existingTag === undefined) {
+            const newTag = {
+                subject: inputTag
+            }
+            saveTags(newTag)
+        } else {
+            currentJournalTags.push(existingTag)
         }
-        )
+    })
 }
 
 
-// export const tagsFunction = (tags) => {
-//     const entryTags = document.querySelector("#entry--tags")
-//     const arrayOfTags = entryTags.split(",")
-//     for (tag of arrayOfTags) {
-//         if (tag === tags.subject) {
-            
-//         } else {
-//             saveTags()
-//         }
-//     }
-// }

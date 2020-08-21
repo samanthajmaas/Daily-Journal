@@ -5,11 +5,13 @@ let entriesTags = []
 
 const eventHub = document.querySelector(".main")
 
+//dispatches an event that other modules can listen for that lets the event hub know that the database has been updated. 
 const dispatchStateChangeEvent = () => {
     const entryStateChangedEvent = new CustomEvent("entryStateChanged")
 
     eventHub.dispatchEvent(entryStateChangedEvent)
 }
+
 
 export const useTags = () => {
     return tags.slice()
@@ -22,6 +24,7 @@ export const useEntriesTags = () => {
 export const useMoods = () => {
     return moods.slice()
 }
+
 
 export const journalEntriesSorted = () => {
     const sortedByDate = journalEntries.sort(
@@ -99,9 +102,10 @@ export const saveTags = tag => {
             "Content-Type": "application/json"
         },
         body: jsonNote
+    }).then(response => response.json())
+    .then(newTag => {
+        
     })
-    .then(getTags)
-    .then(entryStateChangedEvent)
 }
 
 
@@ -123,6 +127,4 @@ export const saveEntriesTags = tag => {
         },
         body: jsonNote
     })
-    .then(getEntriesTags)
-    .then(entryStateChangedEvent)
 }
