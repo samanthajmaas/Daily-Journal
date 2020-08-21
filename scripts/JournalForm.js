@@ -1,4 +1,4 @@
-import {saveEntry, getMoods, useMoods, journalEntriesSorted, editEntry} from "./JournalDataProvider.js"
+import { saveEntry, getMoods, useMoods, journalEntriesSorted, editEntry } from "./JournalDataProvider.js"
 
 
 const eventHub = document.querySelector(".main")
@@ -9,19 +9,19 @@ eventHub.addEventListener("editEntryClicked", customEvent => {
     const entryId = event.detail.entryId
     const entryObj = allEntries.find(entry => entry.id === entryId)
 
-        const entryDate = document.querySelector("#entry--date")
-        const entryConcept = document.querySelector("#entry--concept")
-        const entryAuthor = document.querySelector("#entry--author")
-        const entryText = document.querySelector("#entry--text")
-        const entryMood = document.querySelector("#entry--mood")
-        const id = document.querySelector("#entryId")
+    const entryDate = document.querySelector("#entry--date")
+    const entryConcept = document.querySelector("#entry--concept")
+    const entryAuthor = document.querySelector("#entry--author")
+    const entryText = document.querySelector("#entry--text")
+    const entryMood = document.querySelector("#entry--mood")
+    const id = document.querySelector("#entryId")
 
-        entryDate.value = entryObj.date
-        entryConcept.value = entryObj.concept
-        entryAuthor.value = entryObj.author
-        entryText.value = entryObj.entry 
-        entryMood.value = entryObj.mood.id 
-        id.value = entryId
+    entryDate.value = entryObj.date
+    entryConcept.value = entryObj.concept
+    entryAuthor.value = entryObj.author
+    entryText.value = entryObj.entry
+    entryMood.value = entryObj.mood.id
+    id.value = entryId
 })
 
 
@@ -35,10 +35,10 @@ eventHub.addEventListener("click", clickEvent => {
         const entryText = document.querySelector("#entry--text")
         const entryMood = document.querySelector("#entry--mood")
         const id = document.querySelector("#entryId")
-        
-        if(entryConcept.value && entryDate.value && entryMood.value && entryText.value && entryAuthor.value){
+
+        if (entryConcept.value && entryDate.value && entryMood.value && entryText.value && entryAuthor.value) {
             const id = document.querySelector("#entryId")
-            if(id.value === ""){
+            if (id.value === "") {
                 const newEntry = {
                     date: entryDate.value,
                     concept: entryConcept.value,
@@ -47,7 +47,7 @@ eventHub.addEventListener("click", clickEvent => {
                     moodId: parseInt(entryMood.value),
                 }
                 saveEntry(newEntry)
-            }else{
+            } else {
                 const updatedEntry = {
                     date: entryDate.value,
                     concept: entryConcept.value,
@@ -58,7 +58,7 @@ eventHub.addEventListener("click", clickEvent => {
                 }
                 editEntry(updatedEntry)
             }
-        } 
+        }
     }
 })
 
@@ -75,16 +75,16 @@ const render = (moods) => {
         <label for="mood">Mood of the Day</label>
         <select id="entry--mood">
             ${
-                moods.map(
-                    (moodsObj) => {
-                        return `<option value="${moodsObj.id}">
+        moods.map(
+            (moodsObj) => {
+                return `<option value="${moodsObj.id}">
                             ${moodsObj.label}
                             </option>`
-                    }
-                )
             }
+        )
+        }
         </select>
-    
+        <input type ="text" id="entry--tags" placeholder="List tags i.e API, components, ect."/>
         <button id="submit">Submit</button>
         <input type="hidden" name="entryId" id="entryId" value="">
     </form>
@@ -93,9 +93,22 @@ const render = (moods) => {
 
 export const NoteForm = () => {
     getMoods()
-        .then(() =>{
+        .then(() => {
             const moods = useMoods()
             render(moods)
         }
         )
 }
+
+
+// export const tagsFunction = (tags) => {
+//     const entryTags = document.querySelector("#entry--tags")
+//     const arrayOfTags = entryTags.split(",")
+//     for (tag of arrayOfTags) {
+//         if (tag === tags.subject) {
+            
+//         } else {
+//             saveTags()
+//         }
+//     }
+// }

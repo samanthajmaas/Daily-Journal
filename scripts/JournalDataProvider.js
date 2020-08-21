@@ -1,5 +1,7 @@
 let journalEntries = []
 let moods =[]
+let tags = []
+let entriesTags = []
 
 const eventHub = document.querySelector(".main")
 
@@ -7,6 +9,14 @@ const dispatchStateChangeEvent = () => {
     const entryStateChangedEvent = new CustomEvent("entryStateChanged")
 
     eventHub.dispatchEvent(entryStateChangedEvent)
+}
+
+export const useTags = () => {
+    return tags.slice()
+}
+
+export const useEntriesTags = () => {
+    return entriesTags.slice()
 }
 
 export const useMoods = () => {
@@ -70,4 +80,49 @@ export const editEntry = (entry) => {
     })
     .then(getEntries)
     .then(dispatchStateChangeEvent)
+}
+
+export const getTags = () => {
+    return fetch("http://localhost:3000/tags")
+        .then(response => response.json())
+        .then(data => {
+            tags = data
+        })
+}
+
+export const saveTags = tag => {
+    const jsonNote = JSON.stringify(tag)
+
+    return fetch("http://localhost:3000/tags", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: jsonNote
+    })
+    .then(getTags)
+    .then(entryStateChangedEvent)
+}
+
+
+export const getEntriesTags = () => {
+    return fetch("http://localhost:3000/entriestags")
+        .then(response => response.json())
+        .then(data => {
+            entriesTags = data
+        })
+}
+
+export const saveEntriesTags = tag => {
+    const jsonNote = JSON.stringify(tag)
+
+    return fetch("http://localhost:3000/entriestags", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: jsonNote
+    })
+    .then(getEntriesTags)
+    .then(entryStateChangedEvent)
 }

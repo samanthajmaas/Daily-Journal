@@ -5,7 +5,7 @@
       "concept": "Edit Button",
       "author": "Sam",
       "entry": "We learned how to use an edit button. It was long and confusing! Hopeful this will work now! I think I am editing a button now! Lol Do I add another one?! Please don't add another",
-      "moodId": 5,
+      "moodId": 3,
       "id": 7
     }
   ],
@@ -33,6 +33,32 @@
     {
       "id": 6,
       "label": "Frustrated"
+    }
+  ],
+  "tags": [
+    {
+      "id": 1,
+      "subject": "API"
+    },
+    {
+      "id": 2,
+      "subject": "components"
+    },
+    {
+      "id": 3,
+      "subject": "fetch"
+    }
+  ],
+  "entriestags": [
+    {
+      "id": 1,
+      "entryId": 7,
+      "tagId": 2
+    },
+    {
+      "id": 2,
+      "entryId": 7,
+      "tagId": 3
     }
   ]
 }
