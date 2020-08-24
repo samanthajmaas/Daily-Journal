@@ -1,4 +1,7 @@
-import { saveEntry, getMoods, useMoods, journalEntriesSorted, editEntry, getEntriesTags, useEntriesTags, saveEntriesTags, getTags, useTags, saveTags } from "./JournalDataProvider.js"
+import { saveEntry, journalEntriesSorted, editEntry} from "./EntriesDataProvider.js"
+import {getMoods, useMoods, } from "../moods/MoodsDataProvider.js"
+import {getTags, useTags, saveTags} from "../tags/TagsDataProvider.js"
+import {getEntriesTags, useEntriesTags, saveEntriesTags} from "../tags/EntriesTagsDataProvider.js"
 
 
 const eventHub = document.querySelector(".main")

@@ -1,5 +1,8 @@
-import { deleteEntry, journalEntriesSorted, getEntries, useMoods, getTags, getEntriesTags, useTags, useEntriesTags } from "./JournalDataProvider.js"
-import { journalEntryHTML } from "./JournalEntryHTMLConverter.js"
+import { deleteEntry, journalEntriesSorted, getEntries} from "./EntriesDataProvider.js"
+import {getTags, useTags} from "../tags/TagsDataProvider.js"
+import {useMoods} from "../moods/MoodsDataProvider.js"
+import { journalEntryHTML } from "./EntryHTMLConverter.js"
+import {getEntriesTags, useEntriesTags} from "../tags/EntriesTagsDataProvider.js"
 
 const eventHub = document.querySelector(".main")
 const contentElement = document.querySelector(".entries")
