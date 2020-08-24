@@ -35,6 +35,15 @@ export const saveEntry = entry => {
         },
         body: jsonNote
     })
+    .then(response => response.json())  
+    .then((savedEntry) => {
+        const customEvent = new CustomEvent("saveEntryWithId", {
+            detail: {
+                entryId: savedEntry.id
+            }
+        })
+        eventHub.dispatchEvent(customEvent)
+    })
     .then(getEntries)
     .then(dispatchStateChangeEvent)
 }

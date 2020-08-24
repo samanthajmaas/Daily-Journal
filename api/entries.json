@@ -43,18 +43,6 @@
     {
       "id": 2,
       "subject": "components"
-    },
-    {
-      "id": 3,
-      "subject": "fetch"
-    },
-    {
-      "subject": "tagging",
-      "id": 4
-    },
-    {
-      "subject": "mapping",
-      "id": 5
     }
   ],
   "entriestags": [
@@ -62,11 +50,6 @@
       "id": 1,
       "entryId": 7,
       "tagId": 2
-    },
-    {
-      "id": 2,
-      "entryId": 7,
-      "tagId": 3
     }
   ]
 }

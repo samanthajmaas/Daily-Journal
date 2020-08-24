@@ -1,7 +1,7 @@
-import { saveEntry, journalEntriesSorted, editEntry} from "./EntriesDataProvider.js"
-import {getMoods, useMoods, } from "../moods/MoodsDataProvider.js"
-import {getTags, useTags, saveTags} from "../tags/TagsDataProvider.js"
-import {getEntriesTags, useEntriesTags, saveEntriesTags} from "../tags/EntriesTagsDataProvider.js"
+import { saveEntry, journalEntriesSorted, editEntry } from "./EntriesDataProvider.js"
+import { getMoods, useMoods, } from "../moods/MoodsDataProvider.js"
+import { getTags, useTags, saveTags } from "../tags/TagsDataProvider.js"
+import { getEntriesTags, useEntriesTags, saveEntriesTags } from "../tags/EntriesTagsDataProvider.js"
 
 
 const eventHub = document.querySelector(".main")
@@ -47,53 +47,61 @@ const render = (moods) => {
     `
 }
 
+eventHub.addEventListener("saveEntryWithId", customEvent => {
+    const entryTags = document.querySelector("#entry--tags") //What tags did the user input?
+    getTagObjectsArray(entryTags.value)
+        .then((tagsFromRecentEntry) => {
+            const newEntryId = customEvent.detail.entryId
+
+            const addToRelationshipDatabase = tagsFromRecentEntry.map(tag => {
+                const newRelationship = {
+                    entryId: newEntryId,
+                    tagId: tag.id
+                }
+                return saveEntriesTags(newRelationship)
+            })
+            //code that needs the tag objects for the journal entry
+        })
+
+})
+
 //This is listening for the Submit button after the user fills out the form.
 //This stores the information from a new entry into the entries database
 //This also updates the information in the entries database if the user edits an exsisting entry
 eventHub.addEventListener("click", clickEvent => {
     if (clickEvent.target.id === "submit") {
-        getEntriesTags()
-            .then(() => {
-                const entryTags = document.querySelector("#entry--tags") //What tags did the user input?
-                getTagObjectsArray(entryTags.value)
-                    .then(arrayOfTagObj => {
-                        console.log("arrayOfTagObj", arrayOfTagObj)
 
-                        //code that needs the tag objects for the journal entry
-                    })
-
-                const entryDate = document.querySelector("#entry--date")
-                const entryConcept = document.querySelector("#entry--concept")
-                const entryAuthor = document.querySelector("#entry--author")
-                const entryText = document.querySelector("#entry--text")
-                const entryMood = document.querySelector("#entry--mood")
+        const entryDate = document.querySelector("#entry--date")
+        const entryConcept = document.querySelector("#entry--concept")
+        const entryAuthor = document.querySelector("#entry--author")
+        const entryText = document.querySelector("#entry--text")
+        const entryMood = document.querySelector("#entry--mood")
 
 
-
-                if (entryConcept.value && entryDate.value && entryMood.value && entryText.value && entryAuthor.value) {
-                    const id = document.querySelector("#entryId")
-                    if (id.value === "") {
-                        const newEntry = {
-                            date: entryDate.value,
-                            concept: entryConcept.value,
-                            author: entryAuthor.value,
-                            entry: entryText.value,
-                            moodId: parseInt(entryMood.value),
-                        }
-                        saveEntry(newEntry)
-                    } else {
-                        const updatedEntry = {
-                            date: entryDate.value,
-                            concept: entryConcept.value,
-                            author: entryAuthor.value,
-                            entry: entryText.value,
-                            moodId: parseInt(entryMood.value),
-                            id: parseInt(id.value)
-                        }
-                        editEntry(updatedEntry)
-                    }
+        if (entryConcept.value && entryDate.value && entryMood.value && entryText.value && entryAuthor.value) {
+            const id = document.querySelector("#entryId")
+            if (id.value === "") {
+                const newEntry = {
+                    date: entryDate.value,
+                    concept: entryConcept.value,
+                    author: entryAuthor.value,
+                    entry: entryText.value,
+                    moodId: parseInt(entryMood.value),
                 }
-            })
+                saveEntry(newEntry)
+            } else {
+                const updatedEntry = {
+                    date: entryDate.value,
+                    concept: entryConcept.value,
+                    author: entryAuthor.value,
+                    entry: entryText.value,
+                    moodId: parseInt(entryMood.value),
+                    id: parseInt(id.value)
+                }
+                editEntry(updatedEntry)
+            }
+        }
+
     }
 })
 
