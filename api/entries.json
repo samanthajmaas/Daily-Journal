@@ -7,22 +7,6 @@
       "entry": "We learned how to use an edit button. It was long and confusing! Hopeful this will work now! I think I am editing a button now! Lol Do I add another one?! Please don't add another",
       "moodId": 3,
       "id": 7
-    },
-    {
-      "date": "2020-08-21",
-      "concept": "Test",
-      "author": "Sam",
-      "entry": "Test",
-      "moodId": 1,
-      "id": 8
-    },
-    {
-      "date": "2020-08-22",
-      "concept": "Test",
-      "author": "Test",
-      "entry": "Test",
-      "moodId": 1,
-      "id": 9
     }
   ],
   "moods": [
@@ -65,32 +49,12 @@
       "subject": "fetch"
     },
     {
-      "subject": " map",
+      "subject": "tagging",
       "id": 4
     },
     {
-      "subject": "database",
+      "subject": "mapping",
       "id": 5
-    },
-    {
-      "subject": " fetch",
-      "id": 6
-    },
-    {
-      "subject": "hello",
-      "id": 7
-    },
-    {
-      "subject": " ",
-      "id": 8
-    },
-    {
-      "subject": "nosense",
-      "id": 9
-    },
-    {
-      "subject": "jibberish",
-      "id": 10
     }
   ],
   "entriestags": [

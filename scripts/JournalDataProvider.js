@@ -103,9 +103,6 @@ export const saveTags = tag => {
         },
         body: jsonNote
     }).then(response => response.json())
-    .then(newTag => {
-        
-    })
 }
 
 
