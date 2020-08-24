@@ -1,16 +1,12 @@
 let journalEntries = []
-let moods =[]
 
 const eventHub = document.querySelector(".main")
 
+//dispatches an event that other modules can listen for that lets the event hub know that the database has been updated. 
 const dispatchStateChangeEvent = () => {
     const entryStateChangedEvent = new CustomEvent("entryStateChanged")
 
     eventHub.dispatchEvent(entryStateChangedEvent)
-}
-
-export const useMoods = () => {
-    return moods.slice()
 }
 
 export const journalEntriesSorted = () => {
@@ -21,20 +17,11 @@ export const journalEntriesSorted = () => {
     return sortedByDate
 }
 
-
 export const getEntries = () => {
     return fetch("http://localhost:3000/entries?_expand=mood") 
     .then(response => response.json())  
     .then(entries => {
         journalEntries = entries
-    })
-}
-
-export const getMoods = () => {
-    return fetch("http://localhost:3000/moods") 
-    .then(response => response.json())  
-    .then(parsedMoods => {
-        moods = parsedMoods
     })
 }
 
@@ -47,6 +34,15 @@ export const saveEntry = entry => {
             "Content-Type": "application/json"
         },
         body: jsonNote
+    })
+    .then(response => response.json())  
+    .then((savedEntry) => {
+        const customEvent = new CustomEvent("saveEntryWithId", {
+            detail: {
+                entryId: savedEntry.id
+            }
+        })
+        eventHub.dispatchEvent(customEvent)
     })
     .then(getEntries)
     .then(dispatchStateChangeEvent)
@@ -71,3 +67,8 @@ export const editEntry = (entry) => {
     .then(getEntries)
     .then(dispatchStateChangeEvent)
 }
+
+
+
+
+

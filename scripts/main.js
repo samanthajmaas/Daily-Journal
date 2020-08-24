@@ -1,5 +1,5 @@
-import {NoteForm} from "./JournalForm.js"
-import {entryList} from "./JournalEntryList.js"
+import {NoteForm} from "./journalEntry/JournalForm.js"
+import {entryList} from "./journalEntry/EntryList.js"
 
 
 NoteForm()
